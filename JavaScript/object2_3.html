@@ -1,0 +1,83 @@
+<script>
+	// function Pet(option, owner){
+	// 	this.name = option.name;
+	// 	this.type = option.type;
+	// 	this.owner = owner;
+	// 	this.owner.getName = function(){
+	// 		return option.name;
+	// 	};
+	// 	console.log(this.owner.getName());
+	// }
+	// function People(option){
+	// 	var name = option.name,
+	// 		age = option.age,
+	// 		wife = option.wife,
+	// 		pet = new Pet(option.pet, this); //私有变量 -> 为了达成私有属性的感觉，利用作用域的特性实现私有
+	// 	this.getName = function(){
+	// 		return name;
+	// 	};
+	// 	this.getAge = function(){
+	// 		return age;
+	// 	};
+	// 	this.getWife = function(){
+	// 		return wife;
+	// 	};
+	// 	this.getPet = function(){
+	// 		return pet;
+	// 	};
+	// }
+	// var Jack = new People({
+	// 	name : "Jack",
+	// 	age : 20,
+	// 	wife : "Merry",
+	// 	pet : {
+	// 		type : "cat",
+	// 		name : "Meow"
+	// 	}
+	// });
+	// console.log(Jack.getName());
+	function Pet(option, owner){
+		this.name = option.name;
+		this.type = option.type;
+		this.owner = owner;
+		this.owner.getName = function(){
+			return option.name;
+		};
+	}
+	function People(option){
+		var name = option.name;
+		this.getName = function(){
+			return name;
+		};
+		var	age = option.age;
+		this.getAge = function(){
+			return age;
+		};
+		var	wife = option.wife;
+		this.getWife = function(){
+			return wife;
+		};
+		if(option.pet){
+			var	pet = new Pet(option.pet, this);
+			this.getPet = function(){
+				return pet;
+			};
+		}
+	}
+	var Jack = new People({
+		name : "Jack",
+		age : 20,
+		wife : "Merry",
+		pet : {
+			type : "cat",
+			name : "Meow"
+		}
+	});
+	var Tom = new People({
+		name : "Tom",
+		age : 30,
+		wife : "Nothing"
+	});
+	console.log(Tom.getName());
+	console.log(Jack.getName());
+</script>

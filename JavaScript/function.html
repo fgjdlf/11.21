@@ -1,0 +1,187 @@
+<script>
+	//声明方法，声明函数
+	console.log(a);
+	function a(/*参数*/){ //a是方法名
+		// 方法体
+	} //声明提前，方法体内部的内容全部提前！！！
+
+	//对比声明变量
+	console.log(b);
+	var b = 1; //变量只会声明提前，但是赋值不会提前！！！
+
+	//方法表达式，函数表达式
+	//被小括号所包围，无法通过方法名获取到这个方法
+	(function(){}); //匿名方法表达式
+	(function d(){}); //实名方法表达式
+	var c = function(){}; //function(){}是匿名函数表达式
+	var e = function f(){}; //function f(){}是实名方法表达式
+	console.log(function(){}); //function(){}是函数表达式
+	parseInt(function(){}); //function(){}是函数表达式
+	console.log(e);
+	try{
+		console.log(d);
+	}catch(err1){
+		console.log(err1);
+		try{
+			console.log(f);
+		}catch(err2){
+			console.log(err2);
+		}
+	}
+	
+	//方法调用
+	function show(){
+		console.log(233);
+	};
+	var g = 0;
+	while(g++ < 10){
+		show();
+	}
+	console.log(show);
+	var show2 = function(){
+		console.log(666);
+	};
+	console.log(show2);
+	show2();
+
+	// 函数表达式自执行
+	// 方式1
+	(function(){
+		console.log(123);
+	})();
+	(function asdf(){
+		console.log(1234);
+	})();
+	// 方式2
+	(function(){
+		console.log(321);
+	}());
+	(function fdsa(){
+		console.log(4321);
+	})();
+
+	//参数
+	function asdf(arg1){ //一个参数
+		console.log(arg1);
+	}
+	asdf();
+	asdf(233);
+
+	function fdsa(arg1, arg2, arg3, arg4){
+		console.log(arg1, arg2, arg3, arg4);
+	}
+	fdsa();
+	fdsa(111, 222);
+	fdsa(111, 222, 333, 444);
+	fdsa(111, undefined, undefined, 444);
+
+	//加法
+	function add(a, b){
+		console.log(a + b);
+	}
+	add(1, 1);
+	add(2, 3);
+
+	//方法复用性
+	function test(a, b){
+		console.log((a + b)/(2 * a));
+	}
+	test(2, 4);
+	test(4, 3);
+	test(99, 3);
+
+	function test2(){
+		console.log(arguments); //获取传入的所有参数，组合为一个数组
+		console.log(arguments.callee); //获取函数本身
+		arguments[3]();
+	}
+	test2(2, 1, 7, function(){
+		console.log(666);
+	});
+
+	function test3(){
+		arguments.callee(); //堆栈溢出，内存溢出，无限调用了自身
+	}
+	try{
+		test3(); 
+	}catch(e){
+		console.log(e);
+	}
+
+	test4();
+	function test4(){
+		console.log(arguments.callee.caller, test4.caller); //如果不是在某一个函数中被调用，则返回null
+		test5();
+	}
+	function test5(){
+		console.log(arguments.callee.caller, test5.caller); //函数的调用者，由哪个函数调用了当前函数，arguments.callee.caller相当于test5.caller，但是它更具范性
+	}
+
+	console.warn("以下内容非常重要！！！！！！");
+
+	console.log(aa);
+	var aa = 5;
+	function aa(){} //由于方法声明提前，变量声明也提前，方法声明晚于变量声明，最后才是赋值操作
+
+	// js解释器会自动理解为以下流程
+	// var aa;
+	// function aa(){}
+	// aa = 5;
+	console.log(aa);
+
+	console.log(bb);
+	function bb(){}
+	var bb = 5;
+	console.log(bb);
+
+	// js解释器会自动理解为以下流程
+	// var bb;
+	// function bb(){}
+	// bb = 5;
+
+	// 返回值
+	function aaa(){}
+	console.log(aaa()); //如果没有设定方法的返回值，则方法执行后的结果为undefined
+
+	function bbb(){
+		return 233; // 指定方法执行完之后的结果
+		console.log(6666); // 方法设定了return之后将不会继续向下执行
+	}
+	console.log(bbb());
+
+	function ccc(){
+		return;
+	}
+	console.log(ccc());
+
+	function ddd(){
+		if(1 < 0){
+			return "啊";
+		}else{
+			return "噢";
+		}
+	}
+	console.log(ddd());
+
+	function eee(){
+		return [2, 3, 5, {
+			b : function(){
+				return console.log(233);
+			}()
+		}];
+	}
+	console.log(eee()[3]["b"]);
+
+	function fff(a){
+		console.log(a);
+		return function(b){
+			console.log(b);
+			return function(c, d){
+				console.log(c);
+				return d;
+			};
+		};
+	}
+	console.log(fff(555)(666)(777, 888));
+	console.log(fff("a")("s")("d", "f"));
+</script>

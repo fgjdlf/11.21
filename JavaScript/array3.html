@@ -1,0 +1,66 @@
+<script>
+	var a = [4, 0, 3, 2, 7];
+	//forEach数组遍历
+	console.log(a.forEach(function(item/*数组中的每一个元素*/, index/*每一个元素的下标*/, arr/**/){
+		console.log(item, index, arr);
+	}));
+	//forEach方法不会改变原数组
+
+	console.log("------------------------------------");
+	//forEach方法原理实现方式
+	function forEach(arr, callback/*回调函数*/){
+		var a = 0,
+			arrLen = arr.length;
+		while(a < arrLen){
+			callback(arr[a], a++, arr);
+		}
+	}
+	console.log(forEach(a, function(item, index, arr){
+		console.log(item, index, arr);
+	}));
+
+	console.log("------------------------------------");
+	//map数组遍历
+	console.log(a.map(function(item, index, arr){
+		console.log(item, index, arr);
+		return "<a>" + item + "</a>"; //可以理解为包装或者处理每一个元素
+	}));
+	//map方法不会改变原数组
+
+	console.log("------------------------------------");
+	//map方法原理实现方式
+	function map(arr, callback){
+		var a = 0,
+			arrLen = arr.length,
+			result = [];
+		while(a < arrLen){
+			// result[a] = callback(arr[a], a++, arr); //方式1
+			result.push(callback(arr[a], a++, arr)); //方式2
+		}
+		return arr;
+	}
+	console.log(map(a, function(item, index, arr){
+		return "<b>" + item + "</b>";
+	}));
+
+	console.log("----------------------------------------");
+	//filter筛选
+	console.log(a.filter(function(item, index, arr){
+		return item > 5;
+	}));
+	//filter方法不会改变原数组
+
+	//filter方法原理实现方式
+	function filter(arr, callback){
+		var a = -1,
+			arrLen = arr.length,
+			result = [];
+		while(++a < arrLen){
+			callback(arr[a], a, arr) && result.push(arr[a]);
+		}
+		return result;
+	}
+	console.log(filter(a, function(item, index, arr){
+		return item;
+	}));
+</script>

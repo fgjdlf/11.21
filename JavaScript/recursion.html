@@ -1,0 +1,72 @@
+<script>
+	//递归，简单来说就是函数调用自己
+	var b = 0;
+	function a(a){
+		console.log(a);
+		if(a < 10){
+			arguments.callee(++a);
+		}
+	}
+	a(b);
+
+	//递归实现 1+2+3+...+99+100
+
+	var c = 0;
+	function sum(a){
+		if(a <= 100){
+			c += a;
+			arguments.callee(++a);
+		}else{
+			console.log(c);
+		}
+	}
+	sum(1);
+
+	//递归实现 任意数字开始，任意数字结束之间的整数求和
+
+	var SUM = function(){
+		var sum = 0;
+		return function(a, b){
+			if(a <= b){
+				sum += a;
+				arguments.callee(++a, b);
+			}else{
+				console.log(sum);
+			}
+		};
+	}();
+	SUM(1, 10);
+
+	//关联数组
+	var d = [1, 3, 5];
+	var e = d;
+	e[2] = 7;
+	console.log(d, e);
+
+	//循环拷贝数组
+	var f = [];
+	var g = 0,
+		dLen = d.length;
+	while(g < dLen){
+		f[g] = d[g++];
+	}
+	f[2] = 5;
+	console.log(f, d);
+
+	//递归拷贝数组
+	var copy = function(){
+		var result = [],
+			b = 0;
+		return function(origin){
+			if(origin[b]){
+				result[b] = origin[b++];
+				arguments.callee(origin);
+			}
+			return result;
+		};
+	}();
+	var a1 = [1, 3, 5];
+	var a2 = copy(a1);
+	a2[0] = 9;
+	console.log(a1, a2);
+</script>

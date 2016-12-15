@@ -1,0 +1,19 @@
+<script>
+	//使用apply或call方法的调用模拟类的继承
+	//父母类
+	function Parent(sex){
+		this.sex = ["女", "男"][sex]; //通过数组下标查元素的速度，远高于if、else的判断速度，完成性能优化
+		this.gene = ["美", "帅"][sex];
+		this.work = ["貌美如花", "赚钱养家"][sex];
+	}
+	//儿子类
+	function Son(){
+		Parent.apply(this, [1]); //同样可以使用Parent.call(this, 1);
+		this.work = "我要败家"; //覆盖原有的this.work实现个性
+	}
+	//女儿类
+	function Daughter(){
+		Parent.apply(this, [0]); //同样可以使用Parent.call(this, 0);
+	}
+	console.log(new Parent(1), new Parent(0), new Son(), new Daughter());
+</script>

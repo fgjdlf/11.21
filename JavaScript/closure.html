@@ -1,0 +1,29 @@
+<script>
+	// 闭包
+	var a = function(){
+		var a = 1; //注意其执行次数
+		console.log(666);
+		return function(){
+			console.log(a++);
+		};
+	}(); //声明a变量时，由于匿名函数自执行，其私有变量a被立即声明，并且以后a的值始终为匿名函数执行后的返回值
+	//以后每次去使用a变量时，由于a的值已经计算好为返回出来的匿名函数，所以执行的都是这个返回出来的匿名函数。但是由于这个匿名函数能够访问到其父作用域，所以它可以一直获取到父作用域中的所有变量。
+	a();
+	a();
+	a();
+	var b = a;
+	b();
+
+	var c = function(){
+		var c = 1; //注意其执行次数
+		console.log(233);
+		return function(){
+			console.log(c++);
+		};
+	};
+	c()();
+	c()();
+	var d = c();
+	d();
+	d();
+</script>

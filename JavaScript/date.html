@@ -1,0 +1,49 @@
+<script>
+	//获取计算机当前时间，时间戳（自1970年1月1日起至今的毫秒数）
+	console.log(Date.now());
+
+	//获取计算机当前时间
+	console.log(new Date(), Object.prototype.toString.call(new Date()), typeof new Date());
+
+	//转时间戳方法，精确到秒
+	console.log(Date.parse(new Date()));
+
+	//设置时间
+	console.log(new Date(2014/*年*/, 1/*月*/, 2/*日*/, 12/*时*/, 20/*分*/, 30/*秒*/),
+		 Date.parse(new Date(2014, 1, 2, 12, 20, 30)));
+
+	var strDate = "2008年8月8日8时8分8秒";
+	// function toDate(strDate){
+	// 	var arrDate = strDate.split(/[\u2E80-\u9FFF]+/g);
+	// 	arrDate.pop();
+	// 	console.log(Date.apply(null, arrDate));
+	// }
+	// console.log(toDate(strDate));
+
+	var date = new Date();
+	//获取年份
+	console.log(date.getFullYear());
+
+	//获取月份
+	console.log(date.getMonth() + 1);
+
+	//获取日期
+	console.log(date.getDate());
+
+	//获取星期
+	console.log(date.getDay());
+
+	//获取时
+	console.log(date.getHours());
+
+	//获取分钟
+	console.log(date.getMinutes());
+
+	//获取秒
+	console.log(date.getSeconds());
+
+	//获取毫秒
+	console.log(date.getMilliseconds());
+
+	//2016年08月04日08时02分09秒，两种方式
+</script>

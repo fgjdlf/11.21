@@ -1,0 +1,44 @@
+<script>
+	// 声明变量
+	// 如果不赋值，这个变量的值默认为undefined
+	// 当前代码如果需要使用一个变量，js的解释器会从当前代码的上文和下文中进行查找，一旦查找到变量的声明，则表示此变量可用
+	//如果当前js代码报错，此行代码以后的所有js代码都不再执行
+	// var a = 1; js的解释器会理解为var a; a = 1;
+	// js解释器即浏览器
+	// var a;
+	// console.log(a);
+
+	// b = 1;
+	// console.log(b);
+
+	// a = 1;
+	// console.log(a);
+
+	// a = 2;
+	// console.log(a);
+	console.log(a);
+	var a = 1;
+	var b = a;
+	console.log(b);
+
+	var c, d;
+	console.log(c);
+	console.log(d);
+
+	var e = 1,
+		f = e,
+		g,
+		h;
+	console.log(e, f, g, h, i);
+	var i;
+
+	var j = k = 2;
+	//相当于 k = 2; var j; j = k;
+	console.log(j, k);
+
+	var l = m = n = o = p = q = 666;
+	console.log(l, m, n, o, p, q);
+	
+	console.log(u, u = 123);
+	var u;
+</script>

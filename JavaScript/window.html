@@ -1,0 +1,32 @@
+<html>
+	<body style="width:3000px;height:2000px; background-image:linear-gradient(180deg, #000, #fff)">
+		<script>
+			//所有可以直接调用的方法和对象都是window对象的属性
+			console.log(window.Math);
+			console.log(window.console);
+			console.log(window.parseInt);
+
+			//普通弹窗，警戒
+			// console.log(window.alert);
+			// console.log(alert(233/*提示内容*/));
+
+			//确认弹窗，确认
+			// console.log(window.confirm);
+			// console.log(confirm(666/*提示内容*/)); //如果用户点击确定，则返回true，如果用户点击取消，或者关闭，则返回false
+
+			//用户输入弹窗
+			// console.log(window.prompt);
+			// console.log(prompt(233666/*提示内容*/)); //如果用户输入了内容后点击确定，则返回用户输入的内容；如果用户不输入任何内容，直接确定，返回空字符串；如果用户点击取消，或者关闭，则返回null
+
+			//距离滚动条顶部的距离，单位(px)
+			console.log(window.scrollY, scrollY);
+
+			//距离滚动条左侧的距离，单位(px)
+			console.log(window.scrollX, scrollX);
+
+			//移动滚动条
+			console.log(window.scrollTo);
+			scrollTo(10/*x轴px坐标*/, 10/*y轴px坐标*/); //必须在页面渲染完成后才能执行
+		</script>
+	</body>
+</html>

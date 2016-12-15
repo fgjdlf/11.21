@@ -1,0 +1,239 @@
+<script>
+	var a = [2, 7, 1, 3, 10, 7, 2];
+
+	//查找数组中某元素的下标，如果查不到，则返回-1
+	console.log(a.indexOf(666));
+
+	console.log(a.slice()); //不传参数则返回当前数组
+	console.log(a.slice(2/*开始的下标，如果第二个参数不传，则默认截至数组的长度*/));
+	console.log(a.slice(0, 1));
+	console.log(a.slice(-1/*如果是负数，则从反向开始截取，如果第二个参数不传，则默认截至数组的长度*/));
+	console.log(a.slice(-5, 6)); //下标查找到的元素左等右不等
+	console.log(a.slice(-5, -2)); 
+	//slice方法不会改变原来的数组
+
+	console.log("-------------------------------------------");
+	console.log(a);
+	var b = a;
+	console.log(a.push(4)/*返回新的数组长度*/, a);
+	console.log(a.push(4, 6, 10, 20, 233)/*返回新的数组长度*/, a);
+	console.log(b);
+	//push方法会改变原来的数组
+
+	console.log("------------------push---------------------");
+	//push方法原理实现方式之一
+	function push(){
+		var oldArr = arguments[0],
+			argLen = arguments.length - 1,
+			a = 0;
+		while(a < argLen){
+			oldArr[oldArr.length] = arguments[++a];
+		}
+		return oldArr.length;
+	}
+	var c = [0, 1];
+	console.log(push(c, 6, 10, 2, 10, 233, 666), c);
+
+	console.log("------------------unshift---------------------");
+
+	//unshift方法
+	var d = [0, 1];
+	console.log(d.unshift(666, 233)/*返回新的数组长度*/, d);
+	//unshift方法会改变原来的数组
+
+	//unshift方法原理实现方式之一
+	function unshift(){
+		var oldArr = arguments[0],
+			oldArrLen = oldArr.length,
+			argLen = arguments.length - 1,
+			a = 0,
+			newArr = [],
+			b = 0,
+			c = 0,
+			newArrLen;
+		while(a < argLen){
+			newArr[a] = arguments[++a];
+		}
+		while(b < oldArrLen){
+			newArr[newArr.length] = oldArr[b++];
+		}
+		newArrLen = newArr.length;
+		while(c < newArrLen){  
+			oldArr[c] = newArr[c++];
+		}
+		return newArrLen;
+	}
+	var e = [0, 1];
+	console.log(unshift(e, 6, 10, 2, 10, 233, 666), e);
+
+	//concat数组拼接
+	var f = [0, 1];
+	console.log(f.concat([2, 3])/*返回拼接后的数组*/, f);
+	//concat方法不会改变原来的数组
+
+	//pop切掉数组最后一个元素
+	var g = [0, 1, "233", "asdf"];
+	console.log(g.pop()/*返回被切掉的元素*/, g);
+	//pop方法会改变原来的数组
+
+	//shift切掉数组第一个元素
+	var h = [0, 1, "233", "asdf"];
+	console.log(h.shift()/*返回被切掉的元素*/, h);
+	//shift方法会改变原来的数组
+
+	//sort排序，按照ASCII排序，字母顺序排序
+	var i = [7, 2, 1, 3, 10, 109, "z", "a", "aa"];
+	console.log(i.sort()/*返回排序后的结果*/, i);
+	
+	console.log("--------------------------------");
+	var j = [7, 2, 1, 3, 10, 109, "z", "a", "aa"];
+	console.log(i.sort(function(a, b){
+		return a > b;
+	})); //按升序排序
+	console.log(i.sort(function(a, b){
+		return a < b;
+	})); //按降序排序
+	//sort方法会改变原来的数组
+
+	console.log("--------------------------------");
+	//reverse颠倒整个数组
+	var k = [7, 2, 1, 3, 10, 109, "z", "a", "aa"];
+	console.log(k.reverse()/*返回颠倒后的数组*/, k);
+	//reverse方法会改变原来的数组
+
+	var l = [7, 2, 1, 3, 10, 109, "z", "a", "aa"];
+	console.log(l.sort(function(a, b){
+		return a < b;
+	}).reverse().unshift(2, 3), l);
+
+	console.log("--------------------------------");
+	//splice数组元素的增删改查
+	var m = [7, 2, 1, 3, 10, 109, "z", "a", "aa"];
+	console.log(m.splice(), m); //不传参数则没有截取任何内容
+	// console.log(m.splice(2)/*返回从下标2开始被切掉的所有元素*/, m);
+	// console.log(m.splice(-2)/*返回从倒数第二个元素开始被切掉的所有元素*/, m);
+	// console.log(m.splice(2, 3/*切掉的元素个数*/)/*返回从下标2开始的3个被切掉的元素*/, m);
+	// console.log(m.splice(-2, 1)/*返回从倒数第2个元素开始的1个被切掉的元素*/, m);
+	// console.log(m.splice(2, 3, 3/*替换被切掉的元素的元素*/), m);
+	console.log(m.splice(2, 3, 3, 5)/*返回从下标2开始的3个被切掉的元素*/, m); //从第三个元素开始的所有参数，都是替换被切掉的元素的元素
+
+	//splice方法会改变原来的数组
+
+	//join
+	var n = [7, 2, 1, 3, 10, 109, "z", "a", "aa"];
+	console.log(n.join(/*连接的字符串*/), n); //把数组中的每个元素拼接起来，默认中间加上英文逗号
+	console.log(n.join("+")); //把数组中的每个元素拼接起来，中间加上加号
+	console.log(n.join("")); //不增加任何连接符的拼接
+	//join方法不会改变原来的数组
+
+	console.log(n.join("<a></a>").split("<a></a>"));
+
+	function o(){
+		var args = [].slice.call(arguments); //把类数组做成真数组
+		console.log(args.join());
+	}
+	o(1, 2, 3, 4, 5, 233, 666);
+
+	var data = [
+		{
+			name : "男鞋",
+			price : "149.00",
+			isExpress : 1,
+			paid : 1300,
+			shopOwner : "tb0813",
+			from : "福建泉州"
+		},
+		{
+			name : "运动鞋",
+			price : "59.00",
+			isExpress : 0,
+			paid : 455,
+			shopOwner : "姚雅琼",
+			from : "山东临沂"
+		},
+		{
+			name : "男运动鞋",
+			price : "359.00",
+			isExpress : 0,
+			paid : 4055,
+			shopOwner : "姚雅琼",
+			from : "山东临沂"
+		},
+		{
+			name : "女运动鞋",
+			price : "590.00",
+			isExpress : 1,
+			paid : 55,
+			shopOwner : "姚雅琼",
+			from : "山东临沂"
+		},
+		{
+			name : "拖鞋",
+			price : "5.99",
+			isExpress : 0,
+			paid : 24550,
+			shopOwner : "抹茶咔咔",
+			from : "浙江杭州"
+		},
+		{
+			name : "休闲鞋",
+			price : "201.23",
+			isExpress : 1,
+			paid : 0,
+			shopOwner : "hello_黄先生",
+			from : "福建莆田"
+		}
+	];
+
+	//获取包邮与否的数据集合
+	function getExpress(isExpress){
+		var a = -1,
+			dataLen = data.length,
+			result = [];
+		while(++a < dataLen){
+			data[a].isExpress === isExpress && result.push(data[a]);
+		}
+		return result;
+	}
+	console.log(getExpress(1), getExpress(0));
+
+	//获取购买量大于1000的数据集合
+	function getPaidMoreThanNum(number){
+		var a = -1,
+			dataLen = data.length,
+			result = [];
+		while(++a < dataLen){
+			data[a].paid > number && result.push(data[a]);
+		}
+		return result;
+	}
+	console.log(getPaidMoreThanNum(1), getPaidMoreThanNum(1000));
+
+	//获取价格为200-1000元之间的商品
+	function getPriceInArea(lowerPrice, HigherPrice){
+		var a = -1,
+			dataLen = data.length,
+			result = [];
+		while(++a < dataLen){
+			data[a].price > lowerPrice && data[a].price < HigherPrice && result.push(data[a]);
+		}
+		return result;
+	}
+	console.log(getPriceInArea(200, 1000));
+
+	//泛型筛选
+	function productFilter(filterFunc){
+		var a = -1,
+			dataLen = data.length,
+			result = [];
+		while(++a < dataLen){
+			filterFunc(data[a]) && result.push(data[a]);
+		}
+		return result;
+	}
+	console.log(productFilter(function(item/*数组中的每一个对象*/){
+		return item.price > 200 && item.price < 1000;/*筛选条件有这里传入*/
+	}), productFilter(function(item/*数组中的每一个对象*/){
+		return item.shopOwner !== "姚雅琼";/*筛选条件有这里传入*/
+	}));
+</script>

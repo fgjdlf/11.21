@@ -1,0 +1,78 @@
+<script>
+	var a = 1;
+	console.log(a, typeof a);
+	//toString方法可以把各种类型的数据转为字符串类型
+	console.log(a.toString(), typeof a.toString());
+	console.log(a.toString);
+
+	var b = "1";
+	console.log(b, typeof b);
+	console.log(b.toString(), typeof b.toString());
+	console.log(b.toString);
+
+	//a.toString是数字转换为字符串的方法
+	//b.toString是字符串转换为字符串的方法
+	//虽然打印出来都是function toString(){ [native code] }; 但是js解释器内部的实现不一样，所以不相等
+	console.log(a.toString == b.toString);
+
+	console.log(a, a + "", "" + a);
+
+	var c = "1";
+	//parseInt方法将字符串转为数字
+	console.log(c, parseInt(c));
+
+	//使用运算符隐式转换
+	console.log(c - 0);
+	console.log(+c);
+
+	var d = "123啊";
+	console.log(parseInt(d));
+
+	console.log(d - 0);
+	console.log(+d);
+
+	var e = "(function(){var a = 123;console.log(a);})";
+	//eval方法可以将字符串形式的方法转换为真正的方法，前提是需要在字符串形式的方法前后加上一对小括号
+	console.log(eval(e));
+
+	var f = function(){};
+	console.log(parseInt(f));
+	console.log(f - 0, +f);
+
+	var g = {};
+	//常规对象toString结果为[Object Object]
+	console.log(g.toString());
+
+	var h = [, 3];
+	//数组对象toString结果未去掉中括号后的字符串
+	console.log(h.toString());
+
+	var i = "({})";
+	//eval方法可以将字符串形式的对象转换为真正的对象，前提是需要在字符串形式的对象前后加上一对小括号
+	console.log(eval(i));
+
+	var j = "[0, 1]"; 
+	console.log(eval(j));
+
+	//eval方法是将eval方法中的字符串转换为可执行的内容
+	console.log(eval("1"));
+
+	console.log(parseInt, eval);
+
+	var k = "null";
+	console.log(eval(k));
+
+	var l = "undefined";
+	console.log(eval(l));
+
+	var m = null;
+	console.log(m + "" + "");
+
+	var n = undefined;
+	console.log("" + n + "");
+
+	var o = "asdfasdf";
+	asdfasdf = 233;
+	console.log(eval(o));
+	var asdfasdf;
+</script>

@@ -1,0 +1,25 @@
+<script>
+	console.log(location); //地址对象
+
+	console.log(location.href); //当前地址的完整url
+
+	console.log(location.protocol); //协议类型
+
+	console.log(location.port); //端口号，https协议端口号默认为443，http协议端口号默认为80
+
+	console.log(location.origin); //地址源，携带协议
+	console.log(location.host); //主机名，携带端口号，不带协议
+	console.log(location.hostname); //主机名，不带端口号，协议
+
+	console.log(location.pathname); //路径，路由，地址源至?之间的内容
+
+	console.log(location.search); //查询，参数，?至#之间的内容
+
+	console.log(location.hash); //哈希，#之后的内容
+
+	console.log(location.protocol + "//" + location.hostname + location.port + location.pathname + location.search + location.hash === location.href);
+
+	//可以通过更改location中的各种属性来实现页面的跳转
+
+	location.reload(); //刷新页面
+</script>

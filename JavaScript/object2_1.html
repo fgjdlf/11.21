@@ -1,0 +1,279 @@
+<script>
+	//对象字面量
+	var a = {};
+	var a1 = {
+		a1 : 123, //键值对(键：属性名，值：属性值)
+		a2 : [0, 2],
+		a3 : function(){
+			console.log(this);
+		},
+		a4 : this
+	};
+	a1.a3();
+
+	for(var b = 1; b < 10; b++){
+		var c = 666;
+	}
+	console.log(b, c);
+	//只有function的大括号能够开辟一个新的作用域！！！
+
+	var d = {
+		d : {
+			d : {
+				d : {
+					d : this
+				},
+				e : function(){
+					console.log(this);
+				}
+			},
+			e : function(){
+				console.log(this);
+			}
+		},
+		e : function(){
+			console.log(this);
+		}
+	};
+	//方法中的this指向的是方法的调用对象实例
+	d.e(); //d.e方法中的this即d
+	d.d.e(); //d.d.e方法中的this即d.d
+	d.d.d.e(); //d.d.d.e方法中的this即d.d.d
+	console.log(d.d.d.d);
+	console.log(d.d.d.d.d);
+	console.log("-----------------------------------------------");
+	var f = d.e; //f不是d对象的属性，是window的属性，所以执行f，f方法内部的this指向的是window
+	f();
+	var f1 = d.d.e; //f1不是d.d对象的属性，是window的属性，所以执行f1，f1方法内部的this指向的是window
+	f1();
+	var f2 = d.d.d.e; //f2不是d.d.d对象的属性，是window的属性，所以执行f2，f2方法内部的this指向的是window
+	f2();
+	console.log("-----------------------------------------------");
+	
+	//通过构造函数创建对象
+	function People(){ //构造函数，类
+		this.name = "人"; //为所有的实例添加属性
+		console.log(this);
+	}
+	console.log(People()); //普通方法中的this会指向全局对象
+	console.log(new People()); //返回值为对象字面量，实例
+	console.log(Object.prototype.toString.call(new People()));
+	//People构造函数可以称之为人类
+	//new People()返回的实例可以称之为一个人
+	var person1 = new People();
+	var person2 = new People();
+	var person3 = person2; //可以理解为person3是person2的快捷方式
+	console.log(person1, person2, person1 === person2, person2 === person3);
+
+	var a2 = {};
+	var a3 = {};
+	console.log(a2 === a3);
+
+	var a4 = {};
+	var a5 = a4; //建立了联系，指向同一个内存地址
+	console.log(a4 === a5);
+
+	var b1 = [];
+	var b2 = [];
+	console.log(b1 === b2); //数组也是对象，也有同样的特性
+
+	console.log(person1, {}, console);
+	console.log(person1.constructor, {}.constructor, console.constructor);
+	//对象实例.constructor属性会在创建对象时被默认添加上，指向当前实例的构造函数
+
+	function Vehicle(){
+		this.usage = "交通";
+		this.name = this.usage + "工具";
+		this.transport = function(){
+			console.log("My name is " + this.name + ", I can transport!");
+			return "My name is " + this.name + ", I can transport!";
+		};
+	}
+	var vehicle1 = new Vehicle();
+	// 1.创建{}
+	// 2.为{}添加constructor属性为Vehicle方法
+	// 3.为{}添加usage属性为"交通"
+	// 4.为{}添加name属性为"交通"+"工具"
+	// 5.为{}添加transport属性为一个方法
+	// 6.返回创建完成的对象字面量
+	// new可以理解为从构造函数克隆一份
+	var vehicle2 = new Vehicle();
+	console.log(vehicle1, vehicle2);
+	console.log(vehicle1.name, vehicle1.usage, vehicle1.transport);
+	vehicle1.transport(); //由于transport方法是被vehicle1实例所调用，所以transport方法中的this指向了vehicle1
+
+	console.log("-----------------------------------------------");
+
+	function A(){
+		this.value = 666;
+		this.name = {
+			value : this, //由于this从内向外查找引用的过程中，发现了function的作用域，所以this归属于这个作用域的this
+			a : this.value, //这里的this指向的是构造函数A中的this这个对象字面量
+			show : function(){
+				return this.a; //这里的this指向的是构造函数A中的this.name这个对象字面量
+			}
+		};
+	}
+	var aa = new A();
+	console.log(aa.name.value, aa.name.a, aa.name.show());
+
+	console.log("-------------------------------------------");
+
+	//遍历对象
+	var bb = {
+		a : 1,
+		b : 0,
+		c : "asdf",
+		d : function(){}
+	};
+	var cc;
+	for(cc in bb){ //遍历对象的所有属性名
+		console.log(cc/*属性名*/, bb[cc]/*属性值*/);
+	}
+
+	var dd = {
+		asdf : 1
+	};
+	console.log("asdf" in dd, "fdsa" in dd); //判断对象中是否拥有这个属性名
+
+	console.log("-------------------------------------------");
+	//案例：一个班级
+
+	//班级类
+	function Class(option/*班级的配置信息*/){
+		//私有学生类
+		function Student(id/*学号*/, option/*学生的配置信息*/){
+			this.id = id; //学生的学号
+			// 方式1，知道会传入什么样的固定属性，并且可以设置默认值
+			// this.name = option.name || "名字"; //学生的名字，默认值为"名字"
+			// this.sex = option.sex || "性别"; //学生的性别，默认值为"性别"
+			// this.tel = option.tel || 110; //学生的电话号码，默认值为110
+			// this.special = option.special || "特性"; //学生的特性，默认值为"特性"
+
+			// 方式2，不知道会传入什么样的属性，不方便设置默认值
+			var a;
+			for(a in option){
+				this[a] = option[a]; //遍历添加所有未知的传入属性
+			}
+			this.answer = function(){ //学生能回答问题
+				return (console.log("我是" + this.id + "号学生，我能回答问题！"), 1);
+			};
+			this.silence = function(){ //学生能保持沉默
+				return console.log("我是" + this.id + "号学生，我保持沉默！");
+			};
+		}
+		//私有教师类
+		function Teacher(){
+			this.reply = function(attitude){ //根据学生回答的问题情况，反馈出自己的心情
+				console.log("老师很" + (attitude ? "开心" : "失望") + "！");
+			};
+			this.ask = function(answer){ //老师能提问题
+				this.reply(answer()); //老师只管得到学生响应即可
+			};
+		}
+		this.type = option.type; //班级的类型
+		this.teacher = new Teacher(); //班级的老师
+		this.totalStudents = option.totalStudents; //班级的总人数
+		this.students = []; //班级里的学生
+		var a = 0;
+		while(a < this.totalStudents){
+			this.students[a] = new Student(a + 1, option.students[a++] || {}); //遍历创建每一个学生，并传入学生的配置信息
+		}
+	}
+	var h5Class = new Class({
+		type : "H5",
+		totalStudents : 34,
+		students : [
+			{
+				name : "单洋洋",
+				sex : "男",
+				tel : 110,
+				special : "帅"
+			},
+			{
+				name : "金王静",
+				sex : "女",
+				tel : 130,
+				special : "美"
+			}
+		]
+	}); //创建班级，并传入班级的配置信息
+	h5Class.teacher.ask(function(){ //回调函数
+		return h5Class.students[0].silence(); //学生能自己控制自己选择回答还是选择沉默
+	}); //老师让1号学生回答问题
+
+	//call方法
+	var aaa = {
+		a : 233,
+		b : 2
+	};
+	var bbb = {
+		a : 666,
+		b : function(a, b){
+			console.log(this, this.a);
+			console.log(a, b);
+		}
+	};
+	// 第一个参数为传入bbb.b方法中this的指向，第二个参数起传入的参数是bbb.b方法需要的参数
+	bbb.b.call(bbb, 1, 2); //相当于bbb.b();
+	bbb.b.call(null/*不传或者传null都会让bbb.b方法中的this指向指向全局对象*/);
+	bbb.b.call(aaa); //修改bbb.b方法的this指向为aaa对象
+
+	console.log("-----------------------------------------------------------");
+	//apply方法
+	var aaaa = {
+		a : 233,
+		b : 2
+	};
+	var bbbb = {
+		a : 666,
+		b : function(a, b){
+			console.log(this, this.a);
+			console.log(a, b);
+		}
+	};
+	// 第一个参数为传入bbbb.b方法中this的指向，第二个参数为bbbb.b方法需要的arguments，是一个数组
+	bbbb.b.apply(bbbb, [1, 2]); //相当于bbbb.b();
+	bbbb.b.apply();
+	bbbb.b.apply(aaaa); //修改bbbb.b方法的this指向为aaaa对象
+
+	console.log("-----------------------------------------------------------");
+	//bind方法
+	var aaaaa = {
+		a : 233,
+		b : 2
+	};
+	var bbbbb = {
+		a : 666,
+		b : function(a, b){
+			console.log(this, this.a);
+			console.log(a, b);
+		}
+	};
+	bbbb.b.bind(bbbb); //单纯修改this的指向，不负责调用方法
+
+	function AAA(){
+		var _this = this; //指针借用
+		var a = {
+			b : function(){
+				_this.name = "abc";
+				console.log(_this, this);
+			}
+		};
+		a.b();
+	}
+	var aaab = new AAA();
+	console.log(aaab);
+
+	function AA(){
+		var a = {
+			b : function(){
+				this.name = "abc";
+				console.log(this);
+			}.bind(this)
+		};
+		a.b();
+	}
+	var aab = new AA();
+	console.log(aab);
+</script>

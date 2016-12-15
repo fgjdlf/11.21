@@ -1,0 +1,54 @@
+<script>
+	var a = 201;
+	var b = 4;
+	console.log(a % b);
+
+	var c = .1;
+	var d = .2;
+	console.log(c + d);
+
+	console.log(0 + "1");
+	console.log("0" + 1);
+	console.log(+"0" + 1);
+	console.log(1 + 2 + "3");
+
+	console.log("1" + 2 + "3" + 4);
+	console.log("1" + "2" + 34);
+
+	console.log(1 + 2 * 3 - "4");
+
+	console.log(1 + 2 * (3 - 4));
+
+	console.log(1 + 2 * ("3" + 4));
+
+	var a = (1);
+	console.log(a);
+
+	var e, f = 2;
+	console.log(e, f);
+
+	var g = (2, console.log(g));
+	console.log(parseInt(console.log(2)));
+
+	console.log("----------------------------------");
+	var h = 0;
+	// console.log(++h); 可以理解为 console.log(h = h + 1, h);
+	// console.log(h++); 可以理解为 console.log(h, h = h + 1);
+	// 使用++符号，会改变变量原始的值
+	console.log(h++, ++h);
+	console.log(++h, h++, h);
+
+	console.log(parseInt(h.toString()+(++h)));
+	console.log(parseInt((++h).toString()+(h++))+h);
+
+	// console.log(--h); 可以理解为 console.log(h = h - 1, h);
+	// console.log(h--); 可以理解为 console.log(h, h = h - 1);
+	// 使用--符号，会改变变量原始的值
+
+	var i = 0;
+	i += 1.1;
+	// 使用+=, -=, *=, /=, %=符号，会改变变量原始的值
+	console.log(i += 1.1);
+	console.log(i *= 4, i /= 1.1);
+	console.log(i %= 3, i);
+</script>

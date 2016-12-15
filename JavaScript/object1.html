@@ -1,0 +1,64 @@
+<script>
+	var a = {};
+	console.log(a);
+
+	var b = console;
+	console.log(b);
+	b.log(233);
+
+	var c = {};
+	// 为对象添加属性
+	// 方式一
+	c.a = 1;
+	c.b = "asdf";
+	c.c = [6, "6", 6];
+	console.log(c);
+	console.log(c.a, c.b, c.c[c.a]);
+
+	// 方式二
+	c["d"] = 2;
+	var d = "e";
+	c[d] = 5;
+	c[0] = "asdf";
+	var e = "b";
+	c["a-" + e] = 233;
+	console.log(c);
+	console.log(c.d, c["d"], c.e, c.log/*如果没有这个属性，则这个属性的值为undefined*/, c[0], c["a-b"]);
+	
+	var m = {};
+	var n = {};
+	m.light = 1;
+	n.light = 2;
+	console.log(m, n);
+	m.light = n.light;
+	console.log(m, n);
+
+	// 方式三
+	var p = {
+		door : 1,
+		"window" : 1,
+		"0" : 2,
+		"a+ b" : 3,
+		asdf : m["light"]
+	};
+	console.log(p, p.window, p[0], p["a+ b"]);
+
+	var array = [
+		{
+			a : 1
+		},
+		{
+			b : [7, 3]
+		}
+	];
+	console.log(array[1].b[0], array[1]["b"][0]);
+
+	var object = {
+		a : [
+			[9, 11],
+			console
+		]
+	};
+	object.a[1].log(233);
+	object["a"][1].log(666);
+</script>

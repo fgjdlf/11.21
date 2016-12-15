@@ -1,0 +1,76 @@
+<script>
+	//延时定时器
+	console.log(window.setTimeout);
+	// console.log(setTimeout(function(){
+	// 	console.log(233);
+	// }/*延时时间到后执行的方法*/, 2000/*延时毫秒数*/)); //返回定时器的索引，从1开始计算
+	// console.log(setTimeout(function(){
+	// 	console.log(2333);
+	// }, 1999));
+	//定时器的设置，只有代码的先后顺序，定时器是同时添加到浏览器中进行计时，定时器内方法的执行顺序只与延时时间相关
+
+	//两秒后打印233，再等三秒打印2333
+	//方法1
+	// setTimeout(function(){
+	// 	console.log(233);
+	// }, 2000);
+	// setTimeout(function(){
+	// 	console.log(2333);
+	// }, 5000);
+
+	//方法2
+	// setTimeout(function(){
+	// 	console.log(233);
+	// 	setTimeout(function(){
+	// 		console.log(2333);
+	// 	}, 3000);
+	// }, 2000);
+
+	// var a = 123;
+	// setTimeout(function(){
+	// 	a = 233;
+	// 	console.log(a);
+	// }, 1000);
+	// console.log(a);
+
+	// //定时定时器
+	// console.log(window.setInterval);
+	// console.log(setInterval(function(){
+	// 	console.log(666);
+	// }/*每隔间隔毫秒数都会执行此方法*/, 1000/*间隔毫秒数，定时器开始时会先等待此毫秒数*/)); //返回定时器在浏览器中的索引
+
+	var a = setInterval(function(){
+		console.log(233, a);
+	}, 1000);
+	var b = setTimeout(function(){
+		clearInterval(a); //清除定时计时器，clearInterval对应停止setInterval的索引
+		clearTimeout(b); //清除延时计时器，clearTimeout对应停止setTimeout的索引
+		//虽然clearTimeout能清除setInterval，clearInterval能清除setTimeout，但是出于规范起见，不推荐
+	}, 10000);
+
+	// var c = 0;
+	// setInterval(function(){
+	// 	++c;
+	// 	console.log(c);
+	// }, 200);
+	// console.log(c);
+
+	var a;
+	setInterval(function(){
+		console.log(a);
+	}, a = Math.random()/*创建定时器时，就定死了间隔时间*/);
+
+	var b = 0;
+	if(b = 0/*赋值操作的返回值就是值本身*/){
+		console.log("1. b的值是0");
+	}
+	if(b == 0){
+		console.log("2. b的值是0");
+	}
+
+	var f;
+	function e(a){
+		console.log(a, f);
+	}
+	e(f = 123);
+</script>

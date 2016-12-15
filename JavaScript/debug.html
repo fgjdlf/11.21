@@ -1,0 +1,28 @@
+<script>
+	// Error 错误
+	// SyntaxError 语法错误
+	// ReferenceError 引用错误
+	// RangeError 维度错误
+	// 如果try语句中没有任何错误，则不会进入catch语句，如果后续有finally语句，则会进入到finally语句，但是未被catch捕获的错误，将会再finally语句执行完后报出，后续代码不会继续向下执行；
+	// 如果try语句中报错，如果后续有catch语句，则会进入catch语句，执行完catch语句后，如果有finally语句，再执行finally语句中的内容，执行完finally之后，后续代码会继续向下执行
+	// finally 无论如何必须执行
+	try{
+		throw Error(123);
+	}catch(err){
+		console.log(err);
+		try{
+			console.log(asdf);
+		}catch(e){
+			try{
+				console.log(asdfasdf);
+			}finally{
+				console.log(233);
+			}
+		}finally{
+			console.log(666);
+		}
+		console.log(233);
+	}finally{
+		console.log(666);
+	}
+</script>

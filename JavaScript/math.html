@@ -1,0 +1,51 @@
+<script>
+	//圆周率
+	console.log(Math.PI);
+
+	//小数的四舍五入
+	console.log(Math.round(1.2), Math.round(-1.8));
+
+	//小数向上取整
+	console.log(Math.ceil(1.12));
+
+	//小数向下取整
+	console.log(Math.floor(1.12));
+
+	//转成整数(去掉小数点后的小数)
+	console.log(parseInt(2.47));
+
+	console.log(Math.trunc(2.47));
+
+	//转成小数
+	console.log(parseFloat("3.14"));
+
+	//保留几位小数
+	var a = 1,
+		aa = 3.14159;
+	console.log(a.toFixed(3), aa.toFixed(1)); //返回值是字符串类型
+
+	//乘方，幂运算
+	console.log(Math.pow(2/*基数*/, 10/*指数*/), Math.pow(2, 53), Math.pow(2, 54));
+
+	//开方
+	console.log(Math.sqrt(64), Math.sqrt(2));
+
+	//比较哪个数更大
+	console.log(Math.max(1, 0, 8, 2, 0), Math.max(0, NaN), Math.max(NaN, Infinity)); //所有数与NaN比较，都会返回NaN
+	console.log(1 > NaN); //NaN无法被比大小
+	console.log(NaN === NaN); //NaN没有具体的值，无法比较
+	console.log(1 < Infinity);
+	console.log(Infinity === Infinity); //有具体的值，可以比较
+
+	//比较哪个数更小
+	console.log(Math.min(1, 0, 8, 2, 0), Math.min(0, NaN)); //所有数与NaN比较，都会返回NaN
+
+	//0到1之间的随机小数[0, 1)
+	console.log(Math.random());
+
+	//获取7到10之间的随机整数
+	console.log(7 + parseInt(Math.random() * 4));
+
+	//绝对值|-2|
+	console.log(Math.abs(-2));
+</script>

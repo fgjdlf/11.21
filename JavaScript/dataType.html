@@ -1,0 +1,69 @@
+<script>
+	//typeof 判断数据的类型
+	//Object.prototype.toString.call 判断数据的类型，详细分析出对象类型的具体形式
+
+	//数字类型 number
+	//在Chrome控制台中，数字类型为蓝色
+	var a = 1;
+	console.log(a);
+	console.log(typeof a);
+	console.log(Object.prototype.toString.call(a));
+	//NaN 意思为非数字 Not a number，类型却也是数字
+	console.log(NaN);
+	console.log(typeof NaN);
+	console.log(Object.prototype.toString.call(NaN));
+	//Infinity 意思为无限，类型是数字
+	console.log(Infinity);
+	console.log(typeof Infinity);
+	console.log(Object.prototype.toString.call(Infinity));
+
+	//字符串类型 string
+	//在Chrome控制台中，字符串类型为黑色
+	var b = "1";
+	console.log(b);
+	console.log(typeof b);
+	console.log(Object.prototype.toString.call(b));
+	var c = "啊";
+	console.log(c);
+	console.log(typeof c);
+	var d = "asdfasdf";
+	console.log(d);
+	console.log(typeof d);
+
+	//布尔类型 boolean 只有true和false
+	var e = false;
+	console.log(e);
+	console.log(typeof e);
+	console.log(Object.prototype.toString.call(e));
+
+	console.log(typeof typeof e);
+
+	//方法类型 function
+	function f(){}
+	console.log(typeof f);
+	console.log(Object.prototype.toString.call(f));
+
+	//对象类型 object
+	var g = [];
+	console.log(g);
+	console.log(typeof g);
+	console.log(Object.prototype.toString.call(g));
+
+	var h = {};
+	console.log(h);
+	console.log(typeof h);
+	console.log(typeof console);
+	console.log(Object.prototype.toString.call(h));
+
+	var i = null;
+	console.log(i);
+	console.log(typeof i); //null 是对象类型
+	console.log(Object.prototype.toString.call(i));
+
+	//未定义类型 undefined
+	var j;
+	var k = undefined;
+	console.log(j, k);
+	console.log(typeof j, typeof k);
+	console.log(Object.prototype.toString.call(j));
+</script>

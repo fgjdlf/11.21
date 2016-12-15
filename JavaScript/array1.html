@@ -1,0 +1,83 @@
+<script>
+	//数组 不仅是数字的组合
+	var a = [1, undefined, "啊", console, NaN, null, Infinity, function(){}, [[{}, 123],function(){}, console]];
+	console.log(a);
+	var b = [,,,,,,,,,,];
+	console.log(b);
+	var c = [1,];
+	console.log(c);
+	var d = [, 1];
+	console.log(d);
+
+	// 数组的下标从0开始计算
+	// 如果数组的下标对应的数组中的元素不存在，则返回undefined
+	console.log([0][0], [5, 2, 3][9], [1, 2][.3]);
+	console.log([[1, 2], [2, 3][0], [3, 4]][1]);
+	console.log([,][0]); //相当于 console.log([undefined][0]);
+	try{
+		console.log([[1, 2], undefined, [2, 3], [3, 4]][1][1]);
+	}catch(e){
+		console.log(e);
+	}
+	console.log([2, 3, 6][parseInt(1 + "asdf") + !console.log(233) - !eval("(" + "function(){})")]);
+
+	// 数组实例.length 获取到数组的长度，即数组中元素的个数
+	console.log([1, [1, 99], undefined, 5].length);
+	var f = [];
+	f.length = 5; //数组可以自定义长度
+	console.log(f);
+
+	var g = [1, 2, 3, 5, 8];
+	g.length = 2;
+	console.log(g);
+
+	// 字符串实例.length 获取到字符串的长度，即字符串中字符的个数
+	console.log("asdf啊1 ？".length);
+	var h = "asdf";
+	h.length = 2; //字符串是无法自行设置长度的
+	console.log(h);
+	console.log(h[3]); //字符串也可以使用下标来获取某一个字符
+
+	console.log("-----------------------1-------------------------");
+	//循环打印数组中的每一个元素
+	var i = ["a", "s", "d", "f"],
+		j = 0,
+		len = i.length;
+	while(j < len){
+		console.log(i[j++]);
+	}
+
+	console.log("-----------------------2-------------------------");
+	var m = ["a", "s", "d", "f"],
+		n = -1,
+		len1 = m.length - 1;
+	while(n++ < len1){
+		console.log(m[n]);
+	}
+
+	console.log("-----------------------3-------------------------");
+	var o = ["a", "s", "d", "f"],
+		p = 0,
+		q;
+	while(q = o[p++]){
+		console.log(q);
+	}
+
+	console.log("------------------------------------------------");
+	//倒序输出
+	var k = "asdf",
+		l = k.length;
+	while(l){
+		console.log(k[--l]);
+	}
+
+	// 练习，为此数组添加两个新的元素，数组内的所有元素都需要是不同数据类型
+	var a = ["aa",12,[1,30],function(){}];
+	// 方法一
+	// a.length = a.length + 2; // ["aa",12,[1,30],function(){},undefined,undefined];
+	// a[a.length - 1] = {}; // ["aa",12,[1,30],function(){},undefined,{}];
+
+	// 方法二
+	a[a.length] = {}; // ["aa",12,[1,30],function(){},{}];
+	a.length = a.length + 1; // ["aa",12,[1,30],function(){},{},undefined];
+</script>

@@ -1,0 +1,170 @@
+
+<script>
+	//有一个商店Shop，名字叫做全家，有资产，没卖出商品之前为0
+	//商店中有3个营业员Assistant，每个营业员有自己的名字和年龄
+	//商店中有很多的商品Product（水2元，共20瓶；面包5元，共5个，巧克力10元，共8个；泡面4元，共15包；牛奶3元，共12个），每个商品有它的标签、总数、价格
+	//你是个消费者Consumer，你有具体数目的钱（50-100元之间随机），你想要在商店里买东西
+	//你可以想营业员询问，商店里是否有某件商品，营业员会告诉你是否有，如果有则告诉你价格，如果没有则告诉你没有这个商品
+	//你可以选择是否购买这个商品，如果要购买，则你会付钱，你自己的钱的数目会根据商品的价格减少，营业员收钱后商店会增加资产
+</script>
+<script>
+	//商店类
+	function Shop(option){
+		this.name = option.name;
+		this.money = option.money;
+		var assistants = option.assistants,
+			assistantsLen = assistants.length,
+			products = option.products,
+			productLen = products.length;
+		this.assistants = function(){
+			var a = 0,
+				result = [];
+			while(a < assistantsLen){
+				result[a] = new Assistant(assistants[a++], this);
+			}
+			return result;
+		}.call(this);
+		this.products = function(){
+			var a = 0,
+				result = [];
+			while(a < productLen){
+				result[a] = new Product(products[a++]);
+			}
+			return result;
+		}();
+		this.welcome = function(consumer){
+			var currentAssistant = this.assistants[parseInt(Math.random() * assistantsLen)];
+			currentAssistant.welcome(consumer);
+		};
+		this.getMoney = function(money){
+			this.money += money;
+			alert(this.name + "资产有" + this.money + "元。");
+		};
+	}
+	//人类类
+	function People(option){
+		this.name = option.name;
+		this.age = option.age;
+	}
+	//店员类
+	function Assistant(option, shop){
+		People.call(this, option);
+		this.welcome = function(consumer){
+			this.consumer = consumer;
+			if(confirm("欢迎光临，" + this.consumer.name + "！需要导购吗？")){
+				this.describe();
+			}
+		};
+		this.getProducts = function(type){
+			var a = 0,
+				products = shop.products,
+				productLen = products.length,
+				result = "",
+				arrResult = [];
+			while(a < productLen){
+				result += "、" + products[a].label;
+				arrResult[a] = products[a++].label;
+			}
+			return [arrResult, result.slice(1)][+!type];
+		};
+		this.getPrice = function(index){
+			return shop.products[index].price;
+		};
+		this.describe = function(){
+			this.search(prompt("我们店里有" + this.getProducts() + "，您想要购买什么？"));
+		};
+		this.search = function(label){
+			var a = this.getProducts(1).indexOf(label);
+			if(label && a + 1){
+				this.ask(label, this.getPrice(a));
+			}else{
+				alert("没有此商品！");
+				this.describe();
+			}
+		};
+		this.ask = function(label, price){
+			if(confirm("您要购买的" + label + "这个商品的价格是" + price + "元，是否确定购买？")){
+				shop.getMoney(price);
+				if(this.consumer.consume(price)){
+					this.describe();
+				}else{
+					alert("欢迎再次光临！");
+				}
+			}else{
+				this.describe();
+			}
+		};
+	}
+	//顾客类
+	function Consumer(option){
+		People.call(this, option);
+		this.money = option.money;
+		this.goShopping = function(shopResponse){
+			shopResponse();
+		};
+		this.consume = function(price){
+			var money = this.money;
+			this.money -= price;
+			return confirm(this.name + "原来有" + money + "元，消费了" + price + "元后，还剩" + this.money + "元，是否继续购买？");
+		};
+	}
+	//商品类
+	function Product(option){
+		this.label = option.label;
+		this.sum = option.sum;
+		this.price = option.price;
+	}
+	var Lee = new Consumer({
+		name : "老李",
+		age : 60,
+		money : parseInt(Math.random() * 50) + 50
+	});
+	var FamilyMart = new Shop({
+		name : "全家",
+		money : 0,
+		assistants : [
+			{
+				name : "小赵",
+				age : 24
+			},
+			{
+				name : "小钱",
+				age : 12
+			},
+			{
+				name : "小孙",
+				age : 36
+			}
+		],
+		products : [
+			{
+				label : "水",
+				sum : 20,
+				price : 2
+			},
+			{
+				label : "面包",
+				sum : 5,
+				price : 5
+			},
+			{
+				label : "巧克力",
+				sum : 8,
+				price : 10
+			},
+			{
+				label : "泡面",
+				sum : 15,
+				price : 4
+			},
+			{
+				label : "牛奶",
+				sum : 12,
+				price : 3
+			}
+		]
+	});
+	Lee.goShopping(function(){
+		FamilyMart.welcome(Lee);
+	});
+</script>

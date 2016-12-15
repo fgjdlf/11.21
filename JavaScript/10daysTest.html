@@ -1,0 +1,70 @@
+<script>
+	function System(){
+		var name = "用户系统",
+			user = {};
+		this.welcome = function(){
+			var result = prompt("欢迎来到" + name + "，1.登录；2.注册。");
+			if(result === null){
+				return alert("谢谢使用，再见！");
+			}
+			try{
+				this[["signIn", "signUp"][result - 1]]();
+			}catch(e){
+				alert("您的输入有误，请重新输入！");
+				arguments.callee.call(this);
+			}
+		};
+		//登录业务
+		this.signIn = function(){
+			var username = prompt("请输入用户名。");
+			if(!username || !username.trim()){
+				alert("用户名不能为空！");
+				return arguments.callee.call(this);
+			}
+			var password = prompt("请输入密码。");
+			if(!password || !password.trim()){
+				alert("密码不能为空！");
+				return arguments.callee.call(this);
+			}
+			if(user[username] !== password){
+				return [this.welcome, arguments.callee][+confirm("用户名或密码有误，是否继续登录？")].call(this);
+			}
+			alert("登录成功");
+		};
+		//注册业务
+		this.signUp = function(){
+			var username = prompt("请输入用户名。");
+			if(!username || !username.trim()){
+				alert("用户名不能为空！");
+				return arguments.callee.call(this);
+			}
+			if(user[username]){
+				alert("该用户名已经被注册！");
+				return arguments.callee.call(this);
+			}
+			var password = prompt("请输入密码。");
+			if(!password || !password.trim()){
+				alert("密码不能为空！");
+				return arguments.callee.call(this);
+			}
+			var	repassword = prompt("请再次输入密码");
+			if(!repassword || !repassword.trim()){
+				alert("重复密码不能为空！");
+				return arguments.callee.call(this);
+			}
+			if(password !== repassword){
+				alert("两次输入的密码不一致！");
+				return arguments.callee.call(this);
+			}
+			user[username] = password;
+			(function(result){
+				var a = setTimeout(function(){
+					clearTimeout(a);
+					this[["welcome", "signIn"][+result]]();
+				}.bind(this), 3000);
+			}).apply(this, [confirm("注册成功！是否前往登录？")]);
+		};
+		this.welcome();
+	}
+	new System();
+</script>
